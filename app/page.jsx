@@ -12,6 +12,7 @@ import HomeWhyUs from "@sections/Home/HomeWhyUs"
 const HomePage = () => {
   return (
     <>
+    
     <HomeHero/>
     <HomeStats/>
     <HomeHired/>
@@ -23,10 +24,6 @@ const HomePage = () => {
     <Clientele/>
     <HomeBlogs/>
 
-
-
-
-   
     </>
   )
 }

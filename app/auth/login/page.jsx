@@ -129,7 +129,7 @@ export default function Login() {
               Login with Google
             </Button>
 
-            <Button
+            {/* <Button
               width={1}
               sx={{
                 backgroundColor: "#fff",
@@ -150,7 +150,7 @@ export default function Login() {
                 <Iconify icon="il:linkedin" color="#006699" sx={{ mr: 1 }} />
               }>
               Login with Linkedin
-            </Button>
+            </Button> */}
           </Stack>
           <Divider
             sx={{

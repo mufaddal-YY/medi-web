@@ -77,7 +77,7 @@ const MyProfile = () => {
   useEffect(() => {
     const fetchCandidates = async () => {
       const response = await fetch(
-        `http://localhost:3000/api/users/${session?.user.id}/candidates`
+        `http://https://medi-web.vercel.app/api/users/${session?.user.id}/candidates`
       );
       const data = await response.json();
       console.log(data);
@@ -89,7 +89,7 @@ const MyProfile = () => {
 
     const fetchJobs = async () => {
       const response = await fetch(
-        `http://localhost:3000/api/jobs/${session?.user.id}/candidates`
+        `http://https://medi-web.vercel.app/api/jobs/${session?.user.id}/candidates`
       );
       const data = await response.json();
       console.log(data);
