@@ -36,7 +36,7 @@ const AboutFounder = () => {
             </div>
             
             <div className="col-lg-7 m-l20">
-              <h3>
+              <h3 className="m-t20">
                 Dr. Shilpa <span className="text-red">Totala</span>{" "}
               </h3>
               <p>
