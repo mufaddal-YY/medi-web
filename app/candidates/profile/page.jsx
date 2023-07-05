@@ -256,7 +256,7 @@ const MyProfile = () => {
                         )}
                       </div>
                     </TabPanel>
-                    {/* <TabPanel value={value} index={1}>
+                    <TabPanel value={value} index={1}>
                       {jobs.map((item) => (
                         <div className="feature-bx1 m-b20 p-20" key={item._id}>
                           <div className="row">
@@ -343,7 +343,7 @@ const MyProfile = () => {
                           </div>
                         </div>
                       ))}
-                    </TabPanel> */}
+                    </TabPanel>
                   </Box>
                 </div>
               </div>
