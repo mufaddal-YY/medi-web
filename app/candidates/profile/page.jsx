@@ -181,7 +181,7 @@ console.log(filteredJobs);
         <section className="section-sp4 bg-blue-light">
           <div className="container">
             <div className="row">
-              <div className="col-lg-3 col-sm-12">
+              <div className="col-lg-4 col-sm-12">
                 <div className="feature-bx1 p-20 shadow bg-white ">
                   <div className="d-flex justify-content-center m-b20">
                     <CustomAvatar
@@ -230,7 +230,7 @@ console.log(filteredJobs);
                 </div>
               </div>
 
-              <div className="col-lg-9 col-sm-12">
+              <div className="col-lg-8 col-sm-12">
                 <div className="feature-bx1 shadow bg-white ">
                   <Box sx={{ width: "100%" }}>
                     <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
