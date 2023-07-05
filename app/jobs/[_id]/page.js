@@ -6,7 +6,7 @@ import Jobs from "@components/Jobs";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation"; // Import withRouter
 import LoginPage from "@components/Auth/LoginPage";
-import { Button, Modal, Typography } from "@mui/material";
+import { Button } from "@mui/material";
 
 const JobDetails = ({ params }) => {
   const router = useRouter();
@@ -14,26 +14,23 @@ const JobDetails = ({ params }) => {
   const [job, setJob] = useState(null);
   const [applicationStatus, setApplicationStatus] = useState(null);
   const [isApplied, setIsApplied] = useState(false);
-  const [isConfirmationModalOpen, setIsConfirmationModalOpen] = useState(false);
-  const [hasResume, setHasResume] = useState(false);
 
   useEffect(() => {
-    const fetchJobs = async () => {
+    const fetchJob = async () => {
       try {
-        const [jobResponse, resumeResponse] = await Promise.all([
+        const [jobResponse, candidatesResponse] = await Promise.all([
           fetch(`https://medi-server.onrender.com/api/v1/jobs/${params._id}`),
-          fetch(
-            `https://medi-server.onrender.com/api/v1/candidates/${session?.user.id}/resume`
-          ),
+          fetch("https://medi-server.onrender.com/api/v1/candidates")
         ]);
 
-        const job = await jobResponse.json();
-        const resumeData = await resumeResponse.json();
+        const jobData = await jobResponse.json();
+        const candidatesData = await candidatesResponse.json();
 
-        setJob(job);
-        setHasResume(resumeData.hasResume);
+        setJob(jobData);
 
-        const isCreator = resumeData.creator === session?.user.id;
+        const isCreator = candidatesData.some(
+          (candidate) => candidate.creator === session?.user.id
+        );
 
         if (!isCreator) {
           router.push("/candidates/resume");
@@ -43,57 +40,11 @@ const JobDetails = ({ params }) => {
       }
     };
 
-    if (session) {
-      fetchJobs();
-    }
+    fetchJob();
   }, [params._id, session?.user.id, router]);
 
-  // const handleApply = async (e) => {
-  //   e.preventDefault();
-
-  //   if (!session) {
-  //     console.error("User is not logged in");
-  //     return;
-  //   }
-
-  //   try {
-  //     const response = await fetch(
-  //       "https://medi-web.vercel.app/api/jobApplication/apply",
-  //       {
-  //         method: "POST",
-  //         body: JSON.stringify({
-  //           userId: session?.user.id,
-  //           jobId: job._id,
-  //         }),
-  //       }
-  //     );
-
-  //     if (response.ok) {
-  //       const data = await response.json();
-  //       if (data.alreadyApplied) {
-  //         setApplicationStatus("alreadyApplied");
-  //       } else {
-  //         setApplicationStatus("applied");
-  //       }
-  //       setIsApplied(true);
-  //     } else {
-  //       console.error("Failed to submit application");
-  //     }
-  //   } catch (error) {
-  //     console.error("Failed to Apply", error);
-  //   }
-  // };
-
-  const handleApply = () => {
-    setIsConfirmationModalOpen(true); // Open the confirmation modal
-  };
-
-  const handleCancelApply = () => {
-    setIsConfirmationModalOpen(false); // Close the confirmation modal
-  };
-
-  const handleConfirmApply = async () => {
-    setIsModalOpen(false); // Close the confirmation modal
+  const handleApply = async (e) => {
+    e.preventDefault();
 
     if (!session) {
       console.error("User is not logged in");
@@ -127,10 +78,7 @@ const JobDetails = ({ params }) => {
       console.error("Failed to Apply", error);
     }
   };
-
-  const handleCloseModal = () => {
-    setIsModalOpen(false); // Close the confirmation modal
-  };
+  
 
   if (!job) {
     return <div>Loading...</div>;
@@ -188,25 +136,11 @@ const JobDetails = ({ params }) => {
                           }}>
                           {isApplied ? "Application Submitted" : "Apply Now"}
                         </Button>
-                        {isConfirmationModalOpen && (
-                          <Modal
-                            open={isConfirmationModalOpen}
-                            onClose={handleCancelApply}>
-                            <div>
-                              <Typography variant="h6" component="div">
-                                Are you sure you want to apply?
-                              </Typography>
-                              <Button onClick={handleConfirmApply}>Yes</Button>
-                              <Button onClick={handleCancelApply}>No</Button>
-                            </div>
-                          </Modal>
-                        )}
                       </div>
                     )}
                   </div>
                 )}
               </div>
-
               <hr />
               <div className="row m-b20">
                 <div className="col-md">
