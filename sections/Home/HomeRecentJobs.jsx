@@ -43,6 +43,18 @@ const content = [
 ];
 
 const HomeRecentJobs = () => {
+  const [jobs, setJobs] = useState([]);
+  useEffect(() => {
+    const fetchJobs = async () => {
+      const response = await fetch("https://medi-server.onrender.com/api/v1/jobs");
+      const data = await response.json();
+
+      setJobs(data);
+    };
+    fetchJobs();
+  }, []);
+
+  
   const settings = {
     dots: false,
     infinite: true,
@@ -98,7 +110,7 @@ const HomeRecentJobs = () => {
         </div>
         <div className="container-fluid">
           <Slider {...settings} className="arrow-none">
-            {content.map((item, id) => (
+            {jobs.map((item, id) => (
               <div className="slider-item">
                 <div className="feature-bx1 bg-white">
                   <div className="d-flex">
@@ -108,42 +120,55 @@ const HomeRecentJobs = () => {
 
                     <div>
                       <h5 className="m-t10 m-b0">
-                        <Link href={item.title}>{item.title}</Link>
+                        <Link href={item._id}>{item.jobTitle}</Link>
                       </h5>
-                      <span className="text-red m-t0">
-                        <small className="fs12">
-                          Lorem Ipsum Dolor Sit Amet
-                        </small>
-                      </span>
+                      
                     </div>
                   </div>
-                  <h4 className="m-t10 fw6">Cardiologist</h4>
-                  <div className="widget widget_tag_cloud">
+                  <h4 className="m-t10 fw6">{item.jobTitle}</h4>
+                  <div className="d-flex justify-content-start">
+                    <div className="widget widget_tag_cloud">
                     <div className="tagcloud ">
-                      {item.tags.map((tags) => (
-                        <Link href="#">{tags} </Link>
-                      ))}
+                      
+                        <Link href="#">{item.lang} </Link>
+                     
                     </div>
                   </div>
-                  <p className="m-t10">
+                    <div className="widget widget_tag_cloud">
+                    <div className="tagcloud ">
+                      
+                        <Link href="#">{item.status} </Link>
+                     
+                    </div>
+                  </div>
+                    <div className="widget widget_tag_cloud">
+                    <div className="tagcloud ">
+                      
+                        <Link href="#">{item.qualification} </Link>
+                     
+                    </div>
+                  </div>
+                  </div>
+                  
+{/*                   <p className="m-t10">
                     A cardiologist is a medical doctor who specializes in the
                     diagnosis, treatment, and prevention of heart and
                     cardiovascular system disorders.
-                  </p>
+                  </p> */}
 
                   <div className="d-flex justify-content-start">
                     <div className="d-flex">
-                      <p className="fw4"><span className="text-blue fs18"><BiRupee /></span> 15 LPA</p>
+                      <p className="fw4"><span className="text-blue fs18"><BiRupee /></span> {item.salary}</p>
                     </div>
                     <div className="d-flex m-l20">
-                      <p className="fw4"> <span className="text-blue fs18"><BiTime /></span> 2+ years exp.</p>
+                      <p className="fw4"> <span className="text-blue fs18"><BiTime /></span>{item.experience}</p>
                     </div>
 
                   </div>
                   <hr />
                   <div className="d-flex m-b10 ">
-                    <Link href={"/"} className="btn-primary button-md radius-md">Apply Now</Link>
-                    <Link href={"/"} className="btn-soft m-l10 button-md radius-md">View Job</Link>
+                    <Link href={`/jobs/${item._id}`} className="btn-primary button-md radius-md">Apply Now</Link>
+                    <Link href={`/jobs/${item._id}`} className="btn-soft m-l10 button-md radius-md">View Job</Link>
 
                   </div>
                 </div>
