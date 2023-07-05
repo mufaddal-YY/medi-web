@@ -75,35 +75,34 @@ const MyProfile = () => {
   const [jobs, setJobs] = useState([]);
 
   useEffect(() => {
-    const fetchCandidates = async () => {
-      const response = await fetch(
-        `https://medi-web.vercel.app/api/users/${session?.user.id}/candidates`
-      );
-      const data = await response.json();
-      console.log(data);
+  const fetchCandidates = async () => {
+    const response = await fetch(
+      `https://medi-web.vercel.app/api/users/${session?.user.id}/candidates`
+    );
+    const data = await response.json();
+    console.log(data);
 
-      if (data.length > 0) {
-        setCandidates(data[0]);
-      }
-    };
-
-    const fetchJobs = async () => {
-      const response = await fetch(
-        `https://medi-web.vercel.app/api/jobs/${session?.user.id}/candidates`
-      );
-      const data = await response.json();
-      console.log(data);
-      
-      const uniqueJobs = Array.from(new Set(data.map(job => job._id)))
-        .map(jobId => data.find(job => job._id === jobId));
-      
-      setJobs(uniqueJobs);
-    };
-
-    if (session?.user.id) {
-      fetchCandidates(); fetchJobs();
+    if (data.length > 0) {
+      setCandidates(data[0]);
     }
-  }, []);
+  };
+
+  const fetchJobs = async () => {
+    const response = await fetch(
+      `https://medi-web.vercel.app/api/jobs?userId=${session?.user.id}`
+    );
+    const data = await response.json();
+    console.log(data);
+
+    setJobs(data);
+  };
+
+  if (session?.user.id) {
+    fetchCandidates();
+    fetchJobs();
+  }
+}, []);
+
 
   
   const handleShare = () => {
