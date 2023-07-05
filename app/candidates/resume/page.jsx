@@ -104,7 +104,7 @@ const Resume = () => {
     e.preventDefault();
 
     try {
-      const response = await fetch("https://medi-web.vercel.app/api/candidates", {
+      const response = await fetch("https://medi-web.vercel.app/api/candidate", {
         method: "POST",
         body: JSON.stringify({
           firstName: firstName,
