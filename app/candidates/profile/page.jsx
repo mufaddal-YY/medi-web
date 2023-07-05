@@ -122,6 +122,8 @@ const MyProfile = () => {
   )
 );
 
+  console.log(filteredJobs)
+
 
   
   const handleShare = () => {
