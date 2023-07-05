@@ -73,7 +73,7 @@ const MyProfile = () => {
 
   const [candidates, setCandidates] = useState(null);
   const [jobs, setJobs] = useState([]);
-  const [jobApplication, setJobApplication] = useState([]);
+  const [jobApplications, setJobApplications] = useState([]);
 
   useEffect(() => {
   const fetchCandidates = async () => {
