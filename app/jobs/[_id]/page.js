@@ -45,91 +45,62 @@ const JobDetails = ({ params }) => {
 
 
   useEffect(() => {
-    const fetchJob = async () => {
-      try {
-        const [jobResponse, candidatesResponse] = await Promise.all([
-          fetch(`https://medi-server.onrender.com/api/v1/jobs/${params._id}`),
-          fetch("https://medi-server.onrender.com/api/v1/candidates"),
-        ]);
-
-        const jobData = await jobResponse.json();
-        const candidatesData = await candidatesResponse.json();
-
-        setJob(jobData);
-
-        const isCreator = candidatesData.some(
-          (candidate) => candidate.creator === session?.user.id
-        );
-
-        if (!isCreator) {
-          router.push("/candidates/resume");
-        }
-      } catch (error) {
-        console.error(error);
-      }
-    };
-
-    fetchJob();
-  }, [params._id, session?.user.id, router]);
-
-  useEffect(() => {
-  const fetchApplicationStatus = async () => {
+  const fetchJob = async () => {
     try {
-      const response = await fetch(
-        `https://medi-web.vercel.app/api/jobApplication/apply?userId=${session?.user.id}&jobId=${params._id}`
-      );
-      const data = await response.json();
+      const [jobResponse, candidatesResponse, applicationStatusResponse] = await Promise.all([
+        fetch(`https://medi-server.onrender.com/api/v1/jobs/${params._id}`),
+        fetch("https://medi-server.onrender.com/api/v1/candidates"),
+        fetch(`https://medi-web.vercel.app/api/jobApplication/apply?userId=${session?.user.id}&jobId=${params._id}`)
+      ]);
 
-      if (data.alreadyApplied) {
+      const jobData = await jobResponse.json();
+      const candidatesData = await candidatesResponse.json();
+      const applicationStatusData = await applicationStatusResponse.json();
+
+      setJob(jobData);
+
+      const isCreator = candidatesData.some(
+        (candidate) => candidate.creator === session?.user.id
+      );
+
+      if (!isCreator) {
+        router.push("/candidates/resume");
+      }
+
+      if (applicationStatusData.alreadyApplied) {
         setApplicationStatus("alreadyApplied");
         setIsApplied(true);
       }
     } catch (error) {
-      console.error("Failed to fetch application status:", error);
+      console.error(error);
     }
   };
 
-  if (session?.user.id && job?._id) {
-    fetchApplicationStatus();
-  }
-}, [session?.user.id, params._id, job, isApplied]);
+  fetchJob();
+}, [params._id, session?.user.id, router]);
 
 
-  // const handleApply = async (e) => {
-  //   e.preventDefault();
+//   useEffect(() => {
+//   const fetchApplicationStatus = async () => {
+//     try {
+//       const response = await fetch(
+//         `https://medi-web.vercel.app/api/jobApplication/apply?userId=${session?.user.id}&jobId=${params._id}`
+//       );
+//       const data = await response.json();
 
-  //   if (!session) {
-  //     console.error("User is not logged in");
-  //     return;
-  //   }
+//       if (data.alreadyApplied) {
+//         setApplicationStatus("alreadyApplied");
+//         setIsApplied(true);
+//       }
+//     } catch (error) {
+//       console.error("Failed to fetch application status:", error);
+//     }
+//   };
 
-  //   try {
-  //     const response = await fetch(
-  //       "https://medi-web.vercel.app/api/jobApplication/apply",
-  //       {
-  //         method: "POST",
-  //         body: JSON.stringify({
-  //           userId: session?.user.id,
-  //           jobId: job._id,
-  //         }),
-  //       }
-  //     );
-
-  //     if (response.ok) {
-  //       const data = await response.json();
-  //       if (data.alreadyApplied) {
-  //         setApplicationStatus("alreadyApplied");
-  //       } else {
-  //         setApplicationStatus("applied");
-  //       }
-  //       setIsApplied(true);
-  //     } else {
-  //       console.error("Failed to submit application");
-  //     }
-  //   } catch (error) {
-  //     console.error("Failed to Apply", error);
-  //   }
-  // };
+//   if (session?.user.id && job?._id) {
+//     fetchApplicationStatus();
+//   }
+// }, [session?.user.id, params._id, job, isApplied]);
 
   const handleApply = async (e) => {
   e.preventDefault();
