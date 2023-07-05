@@ -76,7 +76,7 @@ const JobDetails = ({ params }) => {
     const fetchApplicationStatus = async () => {
       try {
         const response = await fetch(
-          `https://medi-web.vercel.app/api/jobApplication?userId=${session?.user.id}&jobId=${params._id}`
+          `https://medi-web.vercel.app/api/jobApplication/apply?userId=${session?.user.id}&jobId=${params._id}`
         );
         const data = await response.json();
 
@@ -104,7 +104,7 @@ const JobDetails = ({ params }) => {
 
     try {
       const response = await fetch(
-        "https://medi-web.vercel.app/api/jobApplication",
+        "https://medi-web.vercel.app/api/jobApplication/apply",
         {
           method: "POST",
           body: JSON.stringify({
