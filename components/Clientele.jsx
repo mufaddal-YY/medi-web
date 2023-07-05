@@ -2,7 +2,22 @@
 
 import Slider from "react-slick";
 import Image from "next/image";
-import Logo from "@assets/images/logo.png"
+import Logo from "@assets/images/Artboard 1.png"
+import Logo2 from "@assets/images/Artboard 2.png"
+import Logo3 from "@assets/images/Artboard 3.png"
+import Logo4 from "@assets/images/Artboard 4.png"
+import Logo5 from "@assets/images/Artboard 5.png"
+import Logo6 from "@assets/images/Artboard 6.png"
+import Logo7 from "@assets/images/Artboard 7.png"
+import Logo8 from "@assets/images/Artboard 8.png"
+import Logo9 from "@assets/images/Artboard 9.png"
+import Logo10 from "@assets/images/Artboard 10.png"
+import Logo11 from "@assets/images/Artboard 11.png"
+import Logo12 from "@assets/images/Artboard 12.png"
+import Logo13 from "@assets/images/Artboard 13.png"
+import Logo14 from "@assets/images/Artboard 14.png"
+import Logo15 from "@assets/images/Artboard 15.png"
+import Logo16 from "@assets/images/Artboard 16.png"
 
 
 const content = [
@@ -10,28 +25,49 @@ const content = [
    thumb: Logo,
   },
   {
-    thumb: Logo,
+    thumb: Logo2,
    },
    {
-    thumb: Logo,
+    thumb: Logo3,
    },
    {
-    thumb: Logo,
+    thumb: Logo4,
    },
    {
-    thumb: Logo,
+    thumb: Logo5,
    },
    {
-    thumb: Logo,
+    thumb: Logo6,
    },
    {
-    thumb: Logo,
+    thumb: Logo7,
    },
    {
-    thumb: Logo,
+    thumb: Logo8,
    },
    {
-    thumb: Logo,
+    thumb: Logo9,
+   },
+   {
+    thumb: Logo10,
+   },
+   {
+    thumb: Logo11,
+   },
+   {
+    thumb: Logo12,
+   },
+   {
+    thumb: Logo13,
+   },
+   {
+    thumb: Logo14,
+   },
+   {
+    thumb: Logo15,
+   },
+   {
+    thumb: Logo16,
    },
  
 ];
