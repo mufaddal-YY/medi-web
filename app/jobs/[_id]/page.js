@@ -23,10 +23,10 @@ const JobDetails = ({ params }) => {
   //         fetch("https://medi-server.onrender.com/api/v1/candidates")
   //       ]);
 
-  //       const jobData = await jobResponse.json();
+  //       const job = await jobResponse.json();
   //       const candidatesData = await candidatesResponse.json();
 
-  //       setJob(jobData);
+  //       setJob(job);
 
   //       const isCreator = candidatesData.some(
   //         (candidate) => candidate.creator === session?.user.id
