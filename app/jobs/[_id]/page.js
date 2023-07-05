@@ -167,7 +167,43 @@ const JobDetails = ({ params }) => {
   }
 };
 
-  
+// Rest of the code...
+
+const handleApply = async (e) => {
+  e.preventDefault();
+
+  if (!session) {
+    console.error("User is not logged in");
+    return;
+  }
+
+  try {
+    const response = await fetch(
+      "https://medi-web.vercel.app/api/jobApplication/apply",
+      {
+        method: "POST",
+        body: JSON.stringify({
+          userId: session?.user.id,
+          jobId: job._id,
+        }),
+      }
+    );
+
+    if (response.ok) {
+      const data = await response.json();
+      if (data.alreadyApplied) {
+        setApplicationStatus("alreadyApplied");
+      } else {
+        setApplicationStatus("applied");
+      }
+      setIsApplied(true);
+    } else {
+      console.error("Failed to submit application");
+    }
+  } catch (error) {
+    console.error("Failed to Apply", error);
+  }
+};  
 
   if (!job) {
     return <div>Loading...</div>;
@@ -192,45 +228,52 @@ const JobDetails = ({ params }) => {
                 </div>
                 {!isJobInactive && (
                   <div className="m-t10">
-                  {isApplied ? (
-                    <Label variant="soft" color="success">
-                      Application Submitted
-                    </Label>
-                  ) : (
-                    <>
-                      {applicationStatus === "alreadyApplied" && (
-                        <Label variant="soft" color="success">
-                          Already Applied
-                        </Label>
-                      )}
-                      <div className="m-t10">
-                        <Button
-                          size="large"
-                          onClick={handleApply}
-                          disabled={isApplied || applicationStatus === "alreadyApplied"} // Disable the button when the application is already submitted or already applied
-                          sx={{
-                            bgcolor: "#d60006",
-                            borderRadius: "8px",
-                            px: "18px",
-                            fontWeight: 600,
-                            color: (theme) =>
-                              theme.palette.mode === "light" ? "common.white" : "main",
-                            "&:hover": {
-                              bgcolor: "text.primary",
+                    {isApplied ? (
+                      <Label variant="soft" color="success">
+                        Application Submitted
+                      </Label>
+                    ) : (
+                      <>
+                        {applicationStatus === "alreadyApplied" && (
+                          <Label variant="soft" color="success">
+                            Already Applied
+                          </Label>
+                        )}
+                        <div className="m-t10">
+                          <Button
+                            size="large"
+                            onClick={handleApply}
+                            disabled={
+                              isApplied ||
+                              applicationStatus === "alreadyApplied"
+                            }
+                            sx={{
+                              bgcolor: "#d60006",
+                              borderRadius: "8px",
+                              px: "18px",
+                              fontWeight: 600,
                               color: (theme) =>
-                                theme.palette.mode === "light" ? "common.white" : "main",
-                            },
-                          }}
-                        >
-                          {isApplied || applicationStatus === "alreadyApplied"
-                            ? "Application Submitted"
-                            : "Apply Now"}
-                        </Button>
-                      </div>
-                    </>
-                  )}
-                </div>
-                
+                                theme.palette.mode === "light"
+                                  ? "common.white"
+                                  : "main",
+                              "&:hover": {
+                                bgcolor: "text.primary",
+                                color: (theme) =>
+                                  theme.palette.mode === "light"
+                                    ? "common.white"
+                                    : "main",
+                              },
+                            }}
+                          >
+                            {isApplied ||
+                            applicationStatus === "alreadyApplied"
+                              ? "Application Submitted"
+                              : "Apply Now"}
+                          </Button>
+                        </div>
+                      </>
+                    )}
+                  </div>
                 )}
               </div>
               <hr />
