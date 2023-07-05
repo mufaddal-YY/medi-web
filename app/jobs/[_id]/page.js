@@ -1,45 +1,41 @@
 "use client";
 
-import Link from "next/link";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import Label from "@components/label/Label";
 import Jobs from "@components/Jobs";
-import { useSession, signIn, signOut, SessionProvider } from "next-auth/react";
+import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation"; // Import withRouter
 import LoginPage from "@components/Auth/LoginPage";
-import { Button } from "@mui/material";
+import { Button, Modal } from "@mui/material";
 
 const JobDetails = ({ params }) => {
   const router = useRouter();
-  const { data: session, status } = useSession();
+  const { data: session } = useSession();
   const [job, setJob] = useState(null);
   const [applicationStatus, setApplicationStatus] = useState(null);
   const [isApplied, setIsApplied] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false); // State to control the modal
+
 
   useEffect(() => {
     const fetchJob = async () => {
       try {
-        const response = await fetch(
-          `https://medi-server.onrender.com/api/v1/jobs/${params._id}`
-        );
-        const data = await response.json();
+        const [jobResponse, candidatesResponse] = await Promise.all([
+          fetch(`https://medi-server.onrender.com/api/v1/jobs/${params._id}`),
+          fetch("https://medi-server.onrender.com/api/v1/candidates")
+        ]);
 
-        setJob(data);
-
-        // Fetch candidates
-        const candidatesResponse = await fetch(
-          "https://medi-server.onrender.com/api/v1/candidates"
-        );
+        const jobData = await jobResponse.json();
         const candidatesData = await candidatesResponse.json();
-        console.log(candidatesData);
 
-        // Check if the creator parameter from candidates matches with session?.user.id
-        const isCreator = candidatesData.some(candidate => candidate.creator === session?.user.id);
-      console.log(isCreator);
+        setJob(jobData);
 
-        // Redirect if not the creator
+        const isCreator = candidatesData.some(
+          (candidate) => candidate.creator === session?.user.id
+        );
+
         if (!isCreator) {
-          router.push("/candidates/resume"); // Replace '/redirect-path' with the desired redirect path
+          router.push("/candidates/resume");
         }
       } catch (error) {
         console.error(error);
@@ -47,18 +43,57 @@ const JobDetails = ({ params }) => {
     };
 
     fetchJob();
-  }, []);
+  }, [params._id, session?.user.id, router]);
 
-  const handleApply = async (e) => {
-    e.preventDefault();
+  // const handleApply = async (e) => {
+  //   e.preventDefault();
+
+  //   if (!session) {
+  //     console.error("User is not logged in");
+  //     return;
+  //   }
+
+  //   try {
+  //     const response = await fetch(
+  //       "https://medi-web.vercel.app/api/jobApplication/apply",
+  //       {
+  //         method: "POST",
+  //         body: JSON.stringify({
+  //           userId: session?.user.id,
+  //           jobId: job._id,
+  //         }),
+  //       }
+  //     );
+
+  //     if (response.ok) {
+  //       const data = await response.json();
+  //       if (data.alreadyApplied) {
+  //         setApplicationStatus("alreadyApplied");
+  //       } else {
+  //         setApplicationStatus("applied");
+  //       }
+  //       setIsApplied(true);
+  //     } else {
+  //       console.error("Failed to submit application");
+  //     }
+  //   } catch (error) {
+  //     console.error("Failed to Apply", error);
+  //   }
+  // };
+
+  const handleApply = () => {
+    setIsModalOpen(true); // Open the confirmation modal
+  };
+
+  const handleConfirmApply = async () => {
+    setIsModalOpen(false); // Close the confirmation modal
+
+    if (!session) {
+      console.error("User is not logged in");
+      return;
+    }
 
     try {
-      if (!session) {
-        // User is not logged in
-        console.error("User is not logged in");
-        return;
-      }
-
       const response = await fetch(
         "https://medi-web.vercel.app/api/jobApplication/apply",
         {
@@ -73,21 +108,23 @@ const JobDetails = ({ params }) => {
       if (response.ok) {
         const data = await response.json();
         if (data.alreadyApplied) {
-          // Entry already exists
           setApplicationStatus("alreadyApplied");
         } else {
-          // Entry created successfully
           setApplicationStatus("applied");
         }
-        setIsApplied(true); // Update the isApplied state to true
+        setIsApplied(true);
       } else {
-        // Handle error case
         console.error("Failed to submit application");
       }
     } catch (error) {
       console.error("Failed to Apply", error);
     }
   };
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false); // Close the confirmation modal
+  };
+  
 
   if (!job) {
     return <div>Loading...</div>;
@@ -106,7 +143,7 @@ const JobDetails = ({ params }) => {
                   <h5 className="m-t10 m-b10">{job.jobTitle}</h5>
                   <Label
                     variant="soft"
-                    color={(job.status === "Inactive" && "error") || "success"}>
+                    color={isJobInactive ? "error" : "success"}>
                     {job.status}
                   </Label>
                 </div>
