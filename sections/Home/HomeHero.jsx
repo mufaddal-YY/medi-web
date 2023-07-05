@@ -35,35 +35,11 @@ const HomeHero = ({ searchJobs, onSearchJobs }) => {
                   consultant Doctor.
                 </p>
 
-                 <Link href={"/jobs"} className="btn-primary button-md radius-md m-b30 m-t20">Explore Jobs</Link>
+                 <Link href={"/jobs"} className="btn-primary button-xl radius-md m-b30 m-t20">Explore Jobs</Link>
               </div>
             </div>
-{/*             <div className="col-md"></div> */}
-{/*             <div className="col-lg-8 ">
-              <div className="search-bx style-2">
-                <form role="search">
-                  <div className="input-group">
-                    <input
-                      name="text"
-                      className="form-control"
-                      placeholder="Search Healthcare jobs..."
-                      type="text"
-                     
-                    />
 
-                    <span className="input-group-btn">
-                      <button
-                        type="submit"
-                        className="btn"
-                        style={{ color: "#fff", backgroundColor: "#d60006" }}>
-                        Search
-                      </button>
-                    </span>
-                  </div>
-                </form>
-              </div>
-            </div> */}
-            // <div className="col-lg"></div>
+
           </div>
         </div>
         <div className="m-b0 m-t50">
