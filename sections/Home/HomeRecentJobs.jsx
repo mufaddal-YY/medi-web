@@ -150,11 +150,9 @@ const HomeRecentJobs = () => {
                   </div>
                   </div>
                   
-{/*                   <p className="m-t10">
-                    A cardiologist is a medical doctor who specializes in the
-                    diagnosis, treatment, and prevention of heart and
-                    cardiovascular system disorders.
-                  </p> */}
+                  <p className="m-t10">
+                    Lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet
+                  </p>
 
                   <div className="d-flex justify-content-start">
                     <div className="d-flex">
