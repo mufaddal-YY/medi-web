@@ -70,42 +70,62 @@ function a11yProps(index) {
 const MyProfile = () => {
 
   const { data: session } = useSession();
+const [candidates, setCandidates] = useState(null);
+const [jobs, setJobs] = useState([]);
+const [jobApplications, setJobApplications] = useState([]);
 
-  const [candidates, setCandidates] = useState(null);
-  const [jobs, setJobs] = useState([]);
-  const [jobApplications, setJobApplications] = useState([]);
-
-  useEffect(() => {
+useEffect(() => {
   const fetchCandidates = async () => {
-    const response = await fetch(
-      `https://medi-web.vercel.app/api/users/${session?.user.id}/candidates`
-    );
-    const data = await response.json();
-    console.log(data);
+    try {
+      const response = await fetch(
+        `https://medi-web.vercel.app/api/users/${session?.user.id}/candidates`
+      );
+      if (!response.ok) {
+        throw new Error('Failed to fetch candidates');
+      }
+      const data = await response.json();
+      console.log(data);
 
-    if (data.length > 0) {
-      setCandidates(data[0]);
+      if (data.length > 0) {
+        setCandidates(data[0]);
+      }
+    } catch (error) {
+      console.error(error);
     }
   };
 
   const fetchJobs = async () => {
-    const response = await fetch(
-      `https://medi-server.onrender.com/api/v1/jobs`
-    );
-    const data = await response.json();
-    console.log(data);
+    try {
+      const response = await fetch(
+        `https://medi-server.onrender.com/api/v1/jobs`
+      );
+      if (!response.ok) {
+        throw new Error('Failed to fetch jobs');
+      }
+      const data = await response.json();
+      console.log(data);
 
-    setJobs(data);
+      setJobs(data);
+    } catch (error) {
+      console.error(error);
+    }
   };
 
-    const fetchJobApplications = async () => {
-    const response = await fetch(
-      `https://medi-web.vercel.app/api/jobApplications`
-    );
-    const data = await response.json();
-    console.log(data);
+  const fetchJobApplications = async () => {
+    try {
+      const response = await fetch(
+        `https://medi-web.vercel.app/api/jobApplications`
+      );
+      if (!response.ok) {
+        throw new Error('Failed to fetch job applications');
+      }
+      const data = await response.json();
+      console.log(data);
 
-    setJobApplications(data);
+      setJobApplications(data);
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   if (session?.user.id) {
@@ -115,14 +135,15 @@ const MyProfile = () => {
   }
 }, []);
 
-  const filteredJobs = jobs.filter((job) =>
+const filteredJobs = jobs.filter((job) =>
   jobApplications.some(
     (application) =>
       application.jobId === job._id && application.userId === session?.user.id
   )
 );
 
-  console.log(filteredJobs)
+console.log(filteredJobs);
+
 
 
   
