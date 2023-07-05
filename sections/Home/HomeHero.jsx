@@ -34,10 +34,12 @@ const HomeHero = ({ searchJobs, onSearchJobs }) => {
                   1st ever healthcare placement consultancy directed by a
                   consultant Doctor.
                 </p>
+
+                 <Link href={"/jobs"} className="btn-primary button-md radius-md m-b30 m-t20">Explore Jobs</Link>
               </div>
             </div>
-            <div className="col-md"></div>
-            <div className="col-lg-8 ">
+{/*             <div className="col-md"></div> */}
+{/*             <div className="col-lg-8 ">
               <div className="search-bx style-2">
                 <form role="search">
                   <div className="input-group">
@@ -60,8 +62,8 @@ const HomeHero = ({ searchJobs, onSearchJobs }) => {
                   </div>
                 </form>
               </div>
-            </div>
-            <div className="col-lg"></div>
+            </div> */}
+            // <div className="col-lg"></div>
           </div>
         </div>
         <div className="m-b0 m-t50">
