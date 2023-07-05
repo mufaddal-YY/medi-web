@@ -89,7 +89,7 @@ const MyProfile = () => {
 
   const fetchJobs = async () => {
     const response = await fetch(
-      `https://medi-web.vercel.app/api/jobs`
+      `https://medi-server.onrender.com/api/v1/jobs`
     );
     const data = await response.json();
     console.log(data);
