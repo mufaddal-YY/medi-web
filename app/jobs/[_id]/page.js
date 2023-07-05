@@ -18,7 +18,7 @@ const JobDetails = ({ params }) => {
   const [hasResume, setHasResume] = useState(false);
 
   useEffect(() => {
-    const fetchJobAndCheckResume = async () => {
+    const fetchJobs = async () => {
       try {
         const [jobResponse, resumeResponse] = await Promise.all([
           fetch(`https://medi-server.onrender.com/api/v1/jobs/${params._id}`),
@@ -27,10 +27,10 @@ const JobDetails = ({ params }) => {
           ),
         ]);
 
-        const jobData = await jobResponse.json();
+        const job = await jobResponse.json();
         const resumeData = await resumeResponse.json();
 
-        setJob(jobData);
+        setJob(job);
         setHasResume(resumeData.hasResume);
 
         const isCreator = resumeData.creator === session?.user.id;
@@ -44,7 +44,7 @@ const JobDetails = ({ params }) => {
     };
 
     if (session) {
-      fetchJobAndCheckResume();
+      fetchJobs();
     }
   }, [params._id, session?.user.id, router]);
 
