@@ -20,7 +20,7 @@ const JobDetails = ({ params }) => {
     const fetchJob = async () => {
       try {
         const response = await fetch(
-          `http://localhost:8080/api/v1/jobs/${params._id}`
+          `https://medi-server.onrender.com/api/v1/jobs/${params._id}`
         );
         const data = await response.json();
 
@@ -28,7 +28,7 @@ const JobDetails = ({ params }) => {
 
         // Fetch candidates
         const candidatesResponse = await fetch(
-          "http://localhost:8080/api/v1/candidates"
+          "https://medi-server.onrender.com/api/v1/candidates"
         );
         const candidatesData = await candidatesResponse.json();
         console.log(candidatesData);

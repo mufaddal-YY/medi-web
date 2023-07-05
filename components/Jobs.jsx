@@ -89,7 +89,7 @@ const Jobs = () => {
 
   useEffect(() => {
     const fetchJobs = async () => {
-      const response = await fetch("http://localhost:8080/api/v1/jobs");
+      const response = await fetch("https://medi-server.onrender.com/api/v1/jobs");
       const data = await response.json();
 
       setJobs(data);
