@@ -70,11 +70,11 @@ const HomeStats = () => {
                   <span className="counter-text">Companies</span>
                 </div>
               </div>
-              <Link
+{/*               <Link
                 href={"/"}
                 className="btn-primary button-md radius-md m-b30">
                 View Jobs <BsArrowRight />
-              </Link>
+              </Link> */}
             </div>
             <div className="col-lg-6 text-center">
               <div className="">
