@@ -6,7 +6,7 @@ import Jobs from "@components/Jobs";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation"; // Import withRouter
 import LoginPage from "@components/Auth/LoginPage";
-import { Button, Modal } from "@mui/material";
+import { Button, Modal, Typography } from "@mui/material";
 
 const JobDetails = ({ params }) => {
   const router = useRouter();
@@ -14,25 +14,26 @@ const JobDetails = ({ params }) => {
   const [job, setJob] = useState(null);
   const [applicationStatus, setApplicationStatus] = useState(null);
   const [isApplied, setIsApplied] = useState(false);
-  const [isModalOpen, setIsModalOpen] = useState(false); // State to control the modal
-
+  const [isConfirmationModalOpen, setIsConfirmationModalOpen] = useState(false);
+  const [hasResume, setHasResume] = useState(false);
 
   useEffect(() => {
-    const fetchJob = async () => {
+    const fetchJobAndCheckResume = async () => {
       try {
-        const [jobResponse, candidatesResponse] = await Promise.all([
+        const [jobResponse, resumeResponse] = await Promise.all([
           fetch(`https://medi-server.onrender.com/api/v1/jobs/${params._id}`),
-          fetch("https://medi-server.onrender.com/api/v1/candidates")
+          fetch(
+            `https://medi-server.onrender.com/api/v1/candidates/${session?.user.id}/resume`
+          ),
         ]);
 
         const jobData = await jobResponse.json();
-        const candidatesData = await candidatesResponse.json();
+        const resumeData = await resumeResponse.json();
 
         setJob(jobData);
+        setHasResume(resumeData.hasResume);
 
-        const isCreator = candidatesData.some(
-          (candidate) => candidate.creator === session?.user.id
-        );
+        const isCreator = resumeData.creator === session?.user.id;
 
         if (!isCreator) {
           router.push("/candidates/resume");
@@ -42,7 +43,9 @@ const JobDetails = ({ params }) => {
       }
     };
 
-    fetchJob();
+    if (session) {
+      fetchJobAndCheckResume();
+    }
   }, [params._id, session?.user.id, router]);
 
   // const handleApply = async (e) => {
@@ -82,7 +85,11 @@ const JobDetails = ({ params }) => {
   // };
 
   const handleApply = () => {
-    setIsModalOpen(true); // Open the confirmation modal
+    setIsConfirmationModalOpen(true); // Open the confirmation modal
+  };
+
+  const handleCancelApply = () => {
+    setIsConfirmationModalOpen(false); // Close the confirmation modal
   };
 
   const handleConfirmApply = async () => {
@@ -124,7 +131,6 @@ const JobDetails = ({ params }) => {
   const handleCloseModal = () => {
     setIsModalOpen(false); // Close the confirmation modal
   };
-  
 
   if (!job) {
     return <div>Loading...</div>;
@@ -182,11 +188,25 @@ const JobDetails = ({ params }) => {
                           }}>
                           {isApplied ? "Application Submitted" : "Apply Now"}
                         </Button>
+                        {isConfirmationModalOpen && (
+                          <Modal
+                            open={isConfirmationModalOpen}
+                            onClose={handleCancelApply}>
+                            <div>
+                              <Typography variant="h6" component="div">
+                                Are you sure you want to apply?
+                              </Typography>
+                              <Button onClick={handleConfirmApply}>Yes</Button>
+                              <Button onClick={handleCancelApply}>No</Button>
+                            </div>
+                          </Modal>
+                        )}
                       </div>
                     )}
                   </div>
                 )}
               </div>
+
               <hr />
               <div className="row m-b20">
                 <div className="col-md">
