@@ -275,7 +275,7 @@ const MyProfile = () => {
                       </div>
                     </TabPanel>
                     <TabPanel value={value} index={1}>
-                      {jobs.map((item) => (
+                      {filteredJobs.map((item) => (
                         <div className="feature-bx1 m-b20 p-20" key={item._id}>
                           <div className="row">
                             <div className="col-md">
