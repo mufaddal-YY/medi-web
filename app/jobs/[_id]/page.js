@@ -23,10 +23,10 @@ const JobDetails = ({ params }) => {
   //         fetch("https://medi-server.onrender.com/api/v1/candidates")
   //       ]);
 
-  //       const job = await jobResponse.json();
+  //       const jobData = await jobResponse.json();
   //       const candidatesData = await candidatesResponse.json();
 
-  //       setJob(job);
+  //       setJob(jobData);
 
   //       const isCreator = candidatesData.some(
   //         (candidate) => candidate.creator === session?.user.id
@@ -46,17 +46,19 @@ const JobDetails = ({ params }) => {
   useEffect(() => {
     const fetchJob = async () => {
       try {
+
         const [jobResponse, candidatesResponse, applicationStatusResponse] = await Promise.all([
           fetch(`https://medi-server.onrender.com/api/v1/jobs/${params._id}`),
           fetch("https://medi-server.onrender.com/api/v1/candidates"),
           fetch(`https://medi-web.vercel.app/api/jobApplication/status?userId=${session?.user.id}&jobId=${params._id}`)
         ]);
   
-        const jobData = await jobResponse.json();
+        const job = await jobResponse.json();
+        console.log(job)
         const candidatesData = await candidatesResponse.json();
         const applicationStatusData = await applicationStatusResponse.json();
   
-        setJob(jobData);
+        setJob(job);
   
         const isCreator = candidatesData.some(
           (candidate) => candidate.creator === session?.user.id
