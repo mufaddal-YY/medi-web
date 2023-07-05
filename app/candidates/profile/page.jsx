@@ -114,7 +114,7 @@ useEffect(() => {
   const fetchJobApplications = async () => {
     try {
       const response = await fetch(
-        `https://medi-web.vercel.app/api/jobApplications/apply`
+        `https://medi-web.vercel.app/api/jobApplication/apply`
       );
       if (!response.ok) {
         throw new Error('Failed to fetch job applications');
