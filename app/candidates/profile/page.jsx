@@ -100,7 +100,7 @@ const MyProfile = () => {
 
     const fetchJobApplications = async () => {
     const response = await fetch(
-      `https://medi-web.vercel.app/api/jobApplications?userId=${session?.user.id}`
+      `https://medi-web.vercel.app/api/jobApplications`
     );
     const data = await response.json();
     console.log(data);
