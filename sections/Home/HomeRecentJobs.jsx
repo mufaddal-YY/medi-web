@@ -119,13 +119,13 @@ const HomeRecentJobs = () => {
                     </div>
 
                     <div>
-                      <h5 className="m-t10 m-b0">
+                      <h6 className="m-t10 m-b0">
                         <Link href={item._id}>{item.jobTitle}</Link>
-                      </h5>
+                      </h6>
                       
                     </div>
                   </div>
-                  <h4 className="m-t10 fw6">{item.jobTitle}</h4>
+                  <h5 className="m-t10 fw5">{item.jobTitle}</h5>
                   <div className="d-flex justify-content-start">
                     <div className="widget widget_tag_cloud">
                     <div className="tagcloud ">
@@ -161,7 +161,7 @@ const HomeRecentJobs = () => {
                       <p className="fw4"><span className="text-blue fs18"><BiRupee /></span> {item.salary}</p>
                     </div>
                     <div className="d-flex m-l20">
-                      <p className="fw4"> <span className="text-blue fs18"><BiTime /></span>{item.experience}</p>
+                      <p className="fw4"> <span className="text-blue fs18"><BiTime /></span> {item.experience}</p>
                     </div>
 
                   </div>
