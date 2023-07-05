@@ -50,7 +50,7 @@ const JobDetails = ({ params }) => {
         const [jobResponse, candidatesResponse, applicationStatusResponse] = await Promise.all([
           fetch(`https://medi-server.onrender.com/api/v1/jobs/${params._id}`),
           fetch("https://medi-server.onrender.com/api/v1/candidates"),
-          fetch(`https://medi-web.vercel.app/api/jobApplication/status?userId=${session?.user.id}&jobId=${params._id}`)
+          fetch(`https://medi-web.vercel.app/api/jobApplication/userId=${session?.user.id}&jobId=${params._id}`)
         ]);
   
         const job = await jobResponse.json();
