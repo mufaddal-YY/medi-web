@@ -15,33 +15,69 @@ const JobDetails = ({ params }) => {
   const [applicationStatus, setApplicationStatus] = useState(null);
   const [isApplied, setIsApplied] = useState(false);
 
+  // useEffect(() => {
+  //   const fetchJob = async () => {
+  //     try {
+  //       const [jobResponse, candidatesResponse] = await Promise.all([
+  //         fetch(`https://medi-server.onrender.com/api/v1/jobs/${params._id}`),
+  //         fetch("https://medi-server.onrender.com/api/v1/candidates")
+  //       ]);
+
+  //       const jobData = await jobResponse.json();
+  //       const candidatesData = await candidatesResponse.json();
+
+  //       setJob(jobData);
+
+  //       const isCreator = candidatesData.some(
+  //         (candidate) => candidate.creator === session?.user.id
+  //       );
+
+  //       if (!isCreator) {
+  //         router.push("/candidates/resume");
+  //       }
+  //     } catch (error) {
+  //       console.error(error);
+  //     }
+  //   };
+
+  //   fetchJob();
+  // }, [params._id, session?.user.id, router]);
+
   useEffect(() => {
     const fetchJob = async () => {
       try {
-        const [jobResponse, candidatesResponse] = await Promise.all([
+        const [jobResponse, candidatesResponse, applicationStatusResponse] = await Promise.all([
           fetch(`https://medi-server.onrender.com/api/v1/jobs/${params._id}`),
-          fetch("https://medi-server.onrender.com/api/v1/candidates")
+          fetch("https://medi-server.onrender.com/api/v1/candidates"),
+          fetch(`https://medi-web.vercel.app/api/jobApplication/status?userId=${session?.user.id}&jobId=${params._id}`)
         ]);
-
+  
         const jobData = await jobResponse.json();
         const candidatesData = await candidatesResponse.json();
-
+        const applicationStatusData = await applicationStatusResponse.json();
+  
         setJob(jobData);
-
+  
         const isCreator = candidatesData.some(
           (candidate) => candidate.creator === session?.user.id
         );
-
+  
         if (!isCreator) {
           router.push("/candidates/resume");
+        }
+  
+        if (applicationStatusData.alreadyApplied) {
+          setApplicationStatus("alreadyApplied");
+          setIsApplied(true);
         }
       } catch (error) {
         console.error(error);
       }
     };
-
+  
     fetchJob();
   }, [params._id, session?.user.id, router]);
+  
 
   const handleApply = async (e) => {
     e.preventDefault();
@@ -103,42 +139,45 @@ const JobDetails = ({ params }) => {
                 </div>
                 {!isJobInactive && (
                   <div className="m-t10">
-                    {applicationStatus === "alreadyApplied" ? (
-                      <Label variant="soft" color="success">
-                        Already Applied
-                      </Label>
-                    ) : isApplied ? (
-                      <Label variant="soft" color="success">
-                        Application Submitted
-                      </Label>
-                    ) : (
+                  {isApplied ? (
+                    <Label variant="soft" color="success">
+                      Application Submitted
+                    </Label>
+                  ) : (
+                    <>
+                      {applicationStatus === "alreadyApplied" && (
+                        <Label variant="soft" color="success">
+                          Already Applied
+                        </Label>
+                      )}
                       <div className="m-t10">
                         <Button
                           size="large"
                           onClick={handleApply}
-                          disabled={isApplied} // Disable the button when application is already submitted
+                          disabled={isApplied || applicationStatus === "alreadyApplied"} // Disable the button when the application is already submitted or already applied
                           sx={{
                             bgcolor: "#d60006",
                             borderRadius: "8px",
                             px: "18px",
                             fontWeight: 600,
                             color: (theme) =>
-                              theme.palette.mode === "light"
-                                ? "common.white"
-                                : "main",
+                              theme.palette.mode === "light" ? "common.white" : "main",
                             "&:hover": {
                               bgcolor: "text.primary",
                               color: (theme) =>
-                                theme.palette.mode === "light"
-                                  ? "common.white"
-                                  : "main",
+                                theme.palette.mode === "light" ? "common.white" : "main",
                             },
-                          }}>
-                          {isApplied ? "Application Submitted" : "Apply Now"}
+                          }}
+                        >
+                          {isApplied || applicationStatus === "alreadyApplied"
+                            ? "Application Submitted"
+                            : "Apply Now"}
                         </Button>
                       </div>
-                    )}
-                  </div>
+                    </>
+                  )}
+                </div>
+                
                 )}
               </div>
               <hr />
