@@ -73,26 +73,27 @@ const JobDetails = ({ params }) => {
   }, [params._id, session?.user.id, router]);
 
   useEffect(() => {
-    const fetchApplicationStatus = async () => {
-      try {
-        const response = await fetch(
-          `https://medi-web.vercel.app/api/jobApplication/apply?userId=${session?.user.id}&jobId=${params._id}`
-        );
-        const data = await response.json();
+  const fetchApplicationStatus = async () => {
+    try {
+      const response = await fetch(
+        `https://medi-web.vercel.app/api/jobApplication/apply?userId=${session?.user.id}&jobId=${params._id}`
+      );
+      const data = await response.json();
 
-        if (data.alreadyApplied) {
-          setApplicationStatus("alreadyApplied");
-          setIsApplied(true);
-        }
-      } catch (error) {
-        console.error("Failed to fetch application status:", error);
+      if (data.alreadyApplied) {
+        setApplicationStatus("alreadyApplied");
+        setIsApplied(true);
       }
-    };
-
-    if (session?.user.id && job?._id) {
-      fetchApplicationStatus();
+    } catch (error) {
+      console.error("Failed to fetch application status:", error);
     }
-  }, [session?.user.id, params._id, job]);
+  };
+
+  if (session?.user.id && job?._id) {
+    fetchApplicationStatus();
+  }
+}, [session?.user.id, params._id, job, isApplied]);
+
 
   // const handleApply = async (e) => {
   //   e.preventDefault();
