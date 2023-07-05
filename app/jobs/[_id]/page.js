@@ -53,12 +53,12 @@ const JobDetails = ({ params }) => {
           fetch(`https://medi-web.vercel.app/api/jobApplication/userId=${session?.user.id}&jobId=${params._id}`)
         ]);
   
-        const job = await jobResponse.json();
+        const jobData = await jobResponse.json();
         console.log(job)
         const candidatesData = await candidatesResponse.json();
         const applicationStatusData = await applicationStatusResponse.json();
   
-        setJob(job);
+        setJob(jobData);
   
         const isCreator = candidatesData.some(
           (candidate) => candidate.creator === session?.user.id
