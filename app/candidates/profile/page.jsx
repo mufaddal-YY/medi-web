@@ -89,7 +89,7 @@ const MyProfile = () => {
 
   const fetchJobs = async () => {
     const response = await fetch(
-      `https://medi-web.vercel.app/api/jobs?userId=${session?.user.id}`
+      `https://medi-web.vercel.app/api/jobs`
     );
     const data = await response.json();
     console.log(data);
@@ -97,11 +97,29 @@ const MyProfile = () => {
     setJobs(data);
   };
 
+    const fetchJobApplications = async () => {
+    const response = await fetch(
+      `https://medi-web.vercel.app/api/jobApplications?userId=${session?.user.id}`
+    );
+    const data = await response.json();
+    console.log(data);
+
+    setJobApplications(data);
+  };
+
   if (session?.user.id) {
     fetchCandidates();
     fetchJobs();
+    fetchJobApplications();
   }
 }, []);
+
+  const filteredJobs = jobs.filter((job) =>
+  jobApplications.some(
+    (application) =>
+      application.jobId === job._id && application.userId === session?.user.id
+  )
+);
 
 
   
