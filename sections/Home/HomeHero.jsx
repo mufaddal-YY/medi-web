@@ -35,7 +35,7 @@ const HomeHero = ({ searchJobs, onSearchJobs }) => {
                   consultant Doctor.
                 </p>
 
-                 <Link href={"/jobs"} className="btn-primary button-xl radius-md m-b30 m-t20">Explore Jobs</Link>
+                 <Link href={"/jobs"} className="btn-primary button-lg radius-md m-b30 m-t20">Explore Jobs</Link>
               </div>
             </div>
 
