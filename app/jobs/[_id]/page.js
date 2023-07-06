@@ -15,6 +15,34 @@ const JobDetails = ({ params }) => {
   const [applicationStatus, setApplicationStatus] = useState(null);
   const [isApplied, setIsApplied] = useState(false);
 
+  // useEffect(() => {
+  //   const fetchJob = async () => {
+  //     try {
+  //       const [jobResponse, candidatesResponse] = await Promise.all([
+  //         fetch(`https://medi-server.onrender.com/api/v1/jobs/${params._id}`),
+  //         fetch("https://medi-server.onrender.com/api/v1/candidates")
+  //       ]);
+
+  //       const jobData = await jobResponse.json();
+  //       const candidatesData = await candidatesResponse.json();
+
+  //       setJob(jobData);
+
+  //       const isCreator = candidatesData.some(
+  //         (candidate) => candidate.creator === session?.user.id
+  //       );
+
+  //       if (!isCreator) {
+  //         router.push("/candidates/resume");
+  //       }
+  //     } catch (error) {
+  //       console.error(error);
+  //     }
+  //   };
+
+  //   fetchJob();
+  // }, [params._id, session?.user.id, router]);
+
   useEffect(() => {
     const fetchJob = async () => {
       try {
@@ -22,16 +50,16 @@ const JobDetails = ({ params }) => {
           fetch(`https://medi-server.onrender.com/api/v1/jobs/${params._id}`),
           fetch("https://medi-server.onrender.com/api/v1/candidates")
         ]);
-
+  
         const jobData = await jobResponse.json();
         const candidatesData = await candidatesResponse.json();
-
+  
         setJob(jobData);
-
+  
         const isCreator = candidatesData.some(
           (candidate) => candidate.creator === session?.user.id
         );
-
+  
         if (!isCreator) {
           router.push("/candidates/resume");
         }
@@ -39,9 +67,12 @@ const JobDetails = ({ params }) => {
         console.error(error);
       }
     };
-
-    fetchJob();
+  
+    if (params._id && session?.user.id && router) {
+      fetchJob();
+    }
   }, [params._id, session?.user.id, router]);
+  
 
 
 //   useEffect(() => {
