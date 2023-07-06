@@ -21,7 +21,7 @@ const JobDetails = ({ params }) => {
       try {
         const [jobResponse, candidatesResponse] = await Promise.all([
           fetch(`https://medi-server.onrender.com/api/v1/jobs/${params._id}`),
-          fetch("https://medi-server.onrender.com/api/v1/candidates"),
+          fetch("https://medirecruiters.in/api/v1/candidates"),
         ]);
 
         const jobData = await jobResponse.json();
@@ -68,7 +68,7 @@ const JobDetails = ({ params }) => {
 
     try {
       const response = await fetch(
-        "https://medi-web.vercel.app/api/jobApplication/apply",
+        "https://medirecruiters.in/api/jobApplication/apply",
         {
           method: "POST",
           body: JSON.stringify({
