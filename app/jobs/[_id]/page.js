@@ -27,6 +27,7 @@ const JobDetails = ({ params }) => {
 
   //       const jobData = await jobResponse.json();
   //       const candidatesData = await candidatesResponse.json();
+  
 
   //       setJob(jobData);
 
@@ -57,6 +58,7 @@ const JobDetails = ({ params }) => {
   
         const jobData = await jobResponse.json();
         const candidatesData = await candidatesResponse.json();
+        console.log(candidatesData)
   
         setJob(jobData);
   
@@ -72,7 +74,7 @@ const JobDetails = ({ params }) => {
       }
     };
   
-    if (params._id && session?.user.id && router) {
+    if (session?.user.id && router) {
       fetchJob();
     } else if (!session) {
       router.push("/auth/login"); // Redirect to login page if params._id or session.user.id is missing
