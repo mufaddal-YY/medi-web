@@ -19,15 +19,14 @@ const JobDetails = ({ params }) => {
   useEffect(() => {
     const fetchJob = async () => {
       try {
-
+        
         const [jobResponse, candidatesResponse] = await Promise.all([
           fetch(`https://medi-server.onrender.com/api/v1/jobs/${params._id}`),
-          fetch("https://medirecruiters.in/api/candidates")
+          fetch("https://medi-server.onrender.com/api/v1/candidates")
         ]);
 
         const jobData = await jobResponse.json();
         const candidatesData = await candidatesResponse.json();
-  
 
         setJob(jobData);
 
@@ -41,13 +40,47 @@ const JobDetails = ({ params }) => {
       } catch (error) {
         console.error(error);
       }
-
     };
 
     fetchJob();
   }, [params._id, session?.user.id, router]);
-  
 
+
+
+//   useEffect(() => {
+//   const fetchJob = async () => {
+//     try {
+//       const [jobResponse, candidatesResponse, applicationStatusResponse] = await Promise.all([
+//         fetch(`https://medi-server.onrender.com/api/v1/jobs/${params._id}`),
+//         fetch("https://medi-server.onrender.com/api/v1/candidates"),
+//         fetch(`https://medi-web.vercel.app/api/jobApplication/apply?userId=${session?.user.id}&jobId=${params._id}`)
+//       ]);
+
+//       const jobData = await jobResponse.json();
+//       const candidatesData = await candidatesResponse.json();
+//       const applicationStatusData = await applicationStatusResponse.json();
+
+//       setJob(jobData);
+
+//       const isCreator = candidatesData.some(
+//         (candidate) => candidate.creator === session?.user.id
+//       );
+
+//       if (!isCreator) {
+//         router.push("/candidates/resume");
+//       }
+
+//       if (applicationStatusData.alreadyApplied) {
+//         setApplicationStatus("alreadyApplied");
+//         setIsApplied(true);
+//       }
+//     } catch (error) {
+//       console.error(error);
+//     }
+//   };
+
+//   fetchJob();
+// }, [params._id, session?.user.id, router]);
 
 
 //   useEffect(() => {
