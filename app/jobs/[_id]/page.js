@@ -22,7 +22,7 @@ const JobDetails = ({ params }) => {
 
         const [jobResponse, candidatesResponse] = await Promise.all([
           fetch(`https://medi-server.onrender.com/api/v1/jobs/${params._id}`),
-          fetch("https://medirecruiters.in/api/candidate")
+          fetch("https://medirecruiters.in/api/candidates")
         ]);
 
         const jobData = await jobResponse.json();
