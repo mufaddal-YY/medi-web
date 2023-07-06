@@ -16,23 +16,54 @@ const JobDetails = ({ params }) => {
   const [applicationStatus, setApplicationStatus] = useState(null);
   const [isApplied, setIsApplied] = useState(false);
 
+  // useEffect(() => {
+  //   const fetchJob = async () => {
+  //     try {
+
+  //       const [jobResponse, candidatesResponse] = await Promise.all([
+  //         fetch(`https://medi-server.onrender.com/api/v1/jobs/${params._id}`),
+  //         fetch("https://medirecruiters.in/api/candidate")
+  //       ]);
+
+  //       const jobData = await jobResponse.json();
+  //       const candidatesData = await candidatesResponse.json();
+
+  //       setJob(jobData);
+
+  //       const isCreator = candidatesData.some(
+  //         (candidate) => candidate.creator === session?.user.id
+  //       );
+
+  //       if (!isCreator) {
+  //         router.push("/candidates/resume");
+  //       }
+  //     } catch (error) {
+  //       console.error(error);
+  //     }
+
+  //   };
+
+  //   fetchJob();
+  // }, [params._id, session?.user.id, router]);
+
+
   useEffect(() => {
     const fetchJob = async () => {
       try {
         const [jobResponse, candidatesResponse] = await Promise.all([
           fetch(`https://medi-server.onrender.com/api/v1/jobs/${params._id}`),
-          fetch("https://medi-server.onrender.com/api/v1/candidates")
+          fetch("https://medirecruiters.in/api/candidates")
         ]);
-
+  
         const jobData = await jobResponse.json();
         const candidatesData = await candidatesResponse.json();
-
+  
         setJob(jobData);
-
+  
         const isCreator = candidatesData.some(
           (candidate) => candidate.creator === session?.user.id
         );
-
+  
         if (!isCreator) {
           router.push("/candidates/resume");
         }
@@ -40,10 +71,14 @@ const JobDetails = ({ params }) => {
         console.error(error);
       }
     };
-
-    fetchJob();
+  
+    if (params._id && session?.user.id && router) {
+      fetchJob();
+    } else if (!params._id || !session?.user.id) {
+      router.push("/login"); // Redirect to login page if params._id or session.user.id is missing
+    }
   }, [params._id, session?.user.id, router]);
-
+  
 
 
 //   useEffect(() => {
