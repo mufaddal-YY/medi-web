@@ -115,7 +115,7 @@ const JobDetails = ({ params }) => {
 
   try {
     const response = await fetch(
-      "https://medirecruiters.in/api/jobApplication/apply",
+      "https://medi-web.vercel.app/api/jobApplication/apply",
       {
         method: "POST",
         body: JSON.stringify({
