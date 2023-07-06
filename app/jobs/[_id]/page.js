@@ -9,6 +9,7 @@ import LoginPage from "@components/Auth/LoginPage";
 import { Button } from "@mui/material";
 
 const JobDetails = ({ params }) => {
+
   const router = useRouter();
   const { data: session } = useSession();
   const [job, setJob] = useState(null);
@@ -68,11 +69,10 @@ const JobDetails = ({ params }) => {
       }
     };
   
-    if (params._id && session?.user.id && router) {
+    if (params._id && session?.user.id) {
       fetchJob();
     }
   }, [params._id, session?.user.id, router]);
-  
 
 
 //   useEffect(() => {
