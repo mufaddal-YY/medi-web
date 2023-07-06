@@ -113,7 +113,7 @@ const HomeRecentJobs = () => {
             {jobs.map((item, id) => (
               <div className="slider-item">
                 <div className="feature-bx1 bg-white">
-                  <div className="d-flex">
+                  {/* <div className="d-flex">
                     <div m-l0>
                       <Image width={80} height={20} src={ClientLogo} alt="" />
                     </div>
@@ -124,7 +124,7 @@ const HomeRecentJobs = () => {
                       </h6>
                       
                     </div>
-                  </div>
+                  </div> */}
                   <h5 className="m-t10 fw5">{item.jobTitle}</h5>
                   <div className="d-flex justify-content-start">
                     <div className="widget widget_tag_cloud">
