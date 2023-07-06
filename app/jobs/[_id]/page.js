@@ -22,27 +22,27 @@ const JobDetails = ({ params }) => {
           fetch(`https://medi-server.onrender.com/api/v1/jobs/${params._id}`),
           fetch("https://medi-web.vercel.app/api/candidates")
         ]);
-
+  
         const jobData = await jobResponse.json();
         const candidatesData = await candidatesResponse.json();
-
+  
         setJob(jobData);
-
+  
         const isCreator = candidatesData.some(
           (candidate) => candidate.creator === session?.user.id
         );
-
+  
         if (!isCreator) {
-          await router.push("/candidates/resume");
+         router.push("/candidates/resume");
         }
       } catch (error) {
         console.error(error);
       }
     };
-
+  
     fetchJob();
-
   }, [params._id, session?.user.id, router]);
+  
 
   const handleApply = async (e) => {
   e.preventDefault();
