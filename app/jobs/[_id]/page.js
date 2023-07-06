@@ -20,65 +20,156 @@ const JobDetails = ({ params }) => {
       try {
         const [jobResponse, candidatesResponse] = await Promise.all([
           fetch(`https://medi-server.onrender.com/api/v1/jobs/${params._id}`),
-          fetch("https://medi-web.vercel.app/api/candidates"),
+          fetch("https://medi-server.onrender.com/api/v1/candidates"),
         ]);
-
+  
         const jobData = await jobResponse.json();
-        console.log(jobData)
         const candidatesData = await candidatesResponse.json();
-
+  
         setJob(jobData);
-
+  
         const isCreator = candidatesData.some(
           (candidate) => candidate.creator === session?.user.id
         );
-
+  
         if (!isCreator) {
-          router.push("/candidates/resume");
+          if (!session) {
+            router.push("/auth/login"); // Redirect to the login page if user is not logged in
+          } else {
+            router.push("/candidates/resume"); // Redirect to the resume page if user is not the creator
+          }
         }
       } catch (error) {
         console.error(error);
       }
     };
-
+  
     fetchJob();
   }, [params._id, session?.user.id, router]);
+  
+
+  // useEffect(() => {
+  //   const fetchJob = async () => {
+  //     try {
+  //       const [jobResponse, candidatesResponse] = await Promise.all([
+  //         fetch(`https://medi-server.onrender.com/api/v1/jobs/${params._id}`),
+  //         fetch("https://medi-server.onrender.com/api/v1/candidates")
+  //       ]);
+
+  //       const jobData = await jobResponse.json();
+  //       const candidatesData = await candidatesResponse.json();
+
+  //       setJob(jobData);
+
+  //       const isCreator = candidatesData.some(
+  //         (candidate) => candidate.creator === session?.user.id
+  //       );
+
+  //       if (!isCreator) {
+  //         router.push("/candidates/resume");
+  //       }
+  //     } catch (error) {
+  //       console.error(error);
+  //     }
+  //   };
+
+  //   fetchJob();
+  // }, [params._id, session?.user.id, router]);
+
+
+//   useEffect(() => {
+//   const fetchJob = async () => {
+//     try {
+//       const [jobResponse, candidatesResponse, applicationStatusResponse] = await Promise.all([
+//         fetch(`https://medi-server.onrender.com/api/v1/jobs/${params._id}`),
+//         fetch("https://medi-server.onrender.com/api/v1/candidates"),
+//         fetch(`https://medi-web.vercel.app/api/jobApplication/apply?userId=${session?.user.id}&jobId=${params._id}`)
+//       ]);
+
+//       const jobData = await jobResponse.json();
+//       const candidatesData = await candidatesResponse.json();
+//       const applicationStatusData = await applicationStatusResponse.json();
+
+//       setJob(jobData);
+
+//       const isCreator = candidatesData.some(
+//         (candidate) => candidate.creator === session?.user.id
+//       );
+
+//       if (!isCreator) {
+//         router.push("/candidates/resume");
+//       }
+
+//       if (applicationStatusData.alreadyApplied) {
+//         setApplicationStatus("alreadyApplied");
+//         setIsApplied(true);
+//       }
+//     } catch (error) {
+//       console.error(error);
+//     }
+//   };
+
+//   fetchJob();
+// }, [params._id, session?.user.id, router]);
+
+
+//   useEffect(() => {
+//   const fetchApplicationStatus = async () => {
+//     try {
+//       const response = await fetch(
+//         `https://medi-web.vercel.app/api/jobApplication/apply?userId=${session?.user.id}&jobId=${params._id}`
+//       );
+//       const data = await response.json();
+
+//       if (data.alreadyApplied) {
+//         setApplicationStatus("alreadyApplied");
+//         setIsApplied(true);
+//       }
+//     } catch (error) {
+//       console.error("Failed to fetch application status:", error);
+//     }
+//   };
+
+//   if (session?.user.id && job?._id) {
+//     fetchApplicationStatus();
+//   }
+// }, [session?.user.id, params._id, job, isApplied]);
 
   const handleApply = async (e) => {
-    e.preventDefault();
+  e.preventDefault();
 
-    if (!session) {
-      console.error("User is not logged in");
-      return;
-    }
+  if (!session) {
+    console.error("User is not logged in");
+    return;
+  }
 
-    try {
-      const response = await fetch(
-        "https://medi-web.vercel.app/api/jobApplication/apply",
-        {
-          method: "POST",
-          body: JSON.stringify({
-            userId: session?.user.id,
-            jobId: job._id,
-          }),
-        }
-      );
-
-      if (response.ok) {
-        const data = await response.json();
-        if (data.alreadyApplied) {
-          setApplicationStatus("alreadyApplied");
-        } else {
-          setApplicationStatus("applied");
-        }
-        setIsApplied(true);
-      } else {
-        console.error("Failed to submit application");
+  try {
+    const response = await fetch(
+      "https://medi-web.vercel.app/api/jobApplication/apply",
+      {
+        method: "POST",
+        body: JSON.stringify({
+          userId: session?.user.id,
+          jobId: job._id,
+        }),
       }
-    } catch (error) {
-      console.error("Failed to Apply", error);
+    );
+
+    if (response.ok) {
+      const data = await response.json();
+      if (data.alreadyApplied) {
+        setApplicationStatus("alreadyApplied");
+      } else {
+        setApplicationStatus("applied");
+      }
+      setIsApplied(true);
+    } else {
+      console.error("Failed to submit application");
     }
-  };
+  } catch (error) {
+    console.error("Failed to Apply", error);
+  }
+};
 
   if (!job) {
     return <div>Loading...</div>;
@@ -138,8 +229,10 @@ const JobDetails = ({ params }) => {
                                     ? "common.white"
                                     : "main",
                               },
-                            }}>
-                            {isApplied || applicationStatus === "alreadyApplied"
+                            }}
+                          >
+                            {isApplied ||
+                            applicationStatus === "alreadyApplied"
                               ? "Application Submitted"
                               : "Apply Now"}
                           </Button>
