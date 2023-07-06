@@ -9,7 +9,6 @@ import LoginPage from "@components/Auth/LoginPage";
 import { Button } from "@mui/material";
 
 const JobDetails = ({ params }) => {
-
   const router = useRouter();
   const { data: session } = useSession();
   const [job, setJob] = useState(null);
@@ -21,7 +20,7 @@ const JobDetails = ({ params }) => {
       try {
         const [jobResponse, candidatesResponse] = await Promise.all([
           fetch(`https://medi-server.onrender.com/api/v1/jobs/${params._id}`),
-          fetch("https://medirecruiters.in/api/v1/candidates"),
+          fetch("https://medi-web.vercel.app/api/candidates")
         ]);
 
         const jobData = await jobResponse.json();
@@ -36,15 +35,6 @@ const JobDetails = ({ params }) => {
         if (!isCreator) {
           router.push("/candidates/resume");
         }
-
-        const hasApplied = candidatesData.some(
-          (candidate) => candidate.jobId === params._id && candidate.creator === session?.user.id
-        );
-        
-        if (hasApplied) {
-          setApplicationStatus("alreadyApplied");
-          setIsApplied(true);
-        }
       } catch (error) {
         console.error(error);
       }
@@ -52,78 +42,6 @@ const JobDetails = ({ params }) => {
 
     fetchJob();
   }, [params._id, session?.user.id, router]);
-
-  const handleApply = async (e) => {
-    e.preventDefault();
-
-    if (!session) {
-      console.error("User is not logged in");
-      return;
-    }
-
-    if (isApplied || applicationStatus === "alreadyApplied") {
-      console.log("User has already applied");
-      return;
-    }
-
-    try {
-      const response = await fetch(
-        "https://medirecruiters.in/api/jobApplication/apply",
-        {
-          method: "POST",
-          body: JSON.stringify({
-            userId: session?.user.id,
-            jobId: job._id,
-          }),
-        }
-      );
-
-      if (response.ok) {
-        const data = await response.json();
-        if (data.alreadyApplied) {
-          setApplicationStatus("alreadyApplied");
-        } else {
-          setApplicationStatus("applied");
-        }
-        setIsApplied(true);
-      } else {
-        console.error("Failed to submit application");
-      }
-    } catch (error) {
-      console.error("Failed to Apply", error);
-    }
-  };
-
-
-  // useEffect(() => {
-  //   const fetchJob = async () => {
-  //     try {
-        
-  //       const [jobResponse, candidatesResponse] = await Promise.all([
-  //         fetch(`https://medi-server.onrender.com/api/v1/jobs/${params._id}`),
-  //         fetch("https://medi-server.onrender.com/api/v1/candidates")
-  //       ]);
-
-  //       const jobData = await jobResponse.json();
-  //       const candidatesData = await candidatesResponse.json();
-
-  //       setJob(jobData);
-
-  //       const isCreator = candidatesData.some(
-  //         (candidate) => candidate.creator === session?.user.id
-  //       );
-
-  //       if (!isCreator) {
-  //         router.push("/candidates/resume");
-  //       }
-  //     } catch (error) {
-  //       console.error(error);
-  //     }
-  //   };
-
-  //   fetchJob();
-  // }, [params._id, session?.user.id, router]);
-
 
 
 //   useEffect(() => {
@@ -184,54 +102,47 @@ const JobDetails = ({ params }) => {
 //   }
 // }, [session?.user.id, params._id, job, isApplied]);
 
-//   const handleApply = async (e) => {
-//   e.preventDefault();
+  const handleApply = async (e) => {
+  e.preventDefault();
 
-//   if (!session) {
-//     console.error("User is not logged in");
-//     return;
-//   }
+  if (!session) {
+    console.error("User is not logged in");
+    return;
+  }
 
-//   try {
-//     const response = await fetch(
-//       "https://medi-web.vercel.app/api/jobApplication/apply",
-//       {
-//         method: "POST",
-//         body: JSON.stringify({
-//           userId: session?.user.id,
-//           jobId: job._id,
-//         }),
-//       }
-//     );
+  try {
+    const response = await fetch(
+      "https://medi-web.vercel.app/api/jobApplication/apply",
+      {
+        method: "POST",
+        body: JSON.stringify({
+          userId: session?.user.id,
+          jobId: job._id,
+        }),
+      }
+    );
 
-//     if (response.ok) {
-//       const data = await response.json();
-//       if (data.alreadyApplied) {
-//         setApplicationStatus("alreadyApplied");
-//       } else {
-//         setApplicationStatus("applied");
-//       }
-//       setIsApplied(true);
-//     } else {
-//       console.error("Failed to submit application");
-//     }
-//   } catch (error) {
-//     console.error("Failed to Apply", error);
-//   }
-// };
+    if (response.ok) {
+      const data = await response.json();
+      if (data.alreadyApplied) {
+        setApplicationStatus("alreadyApplied");
+      } else {
+        setApplicationStatus("applied");
+      }
+      setIsApplied(true);
+    } else {
+      console.error("Failed to submit application");
+    }
+  } catch (error) {
+    console.error("Failed to Apply", error);
+  }
+};
 
   if (!job) {
     return <div>Loading...</div>;
   }
 
   const isJobInactive = job.status === "Inactive";
-
-  let applyButtonText = "Apply Now";
-  if (isApplied) {
-    applyButtonText = "Application Submitted";
-  } else if (applicationStatus === "alreadyApplied") {
-    applyButtonText = "Already Applied";
-  }
 
   if (session) {
     return (
@@ -265,7 +176,10 @@ const JobDetails = ({ params }) => {
                           <Button
                             size="large"
                             onClick={handleApply}
-                            disabled={isApplied || applicationStatus === "alreadyApplied"}
+                            disabled={
+                              isApplied ||
+                              applicationStatus === "alreadyApplied"
+                            }
                             sx={{
                               bgcolor: "#d60006",
                               borderRadius: "8px",
@@ -284,12 +198,10 @@ const JobDetails = ({ params }) => {
                               },
                             }}
                           >
-                            {/* {isApplied ||
+                            {isApplied ||
                             applicationStatus === "alreadyApplied"
                               ? "Application Submitted"
-                              : "Apply Now"} */}
-
-                              {applyButtonText}
+                              : "Apply Now"}
                           </Button>
                         </div>
                       </>
@@ -351,7 +263,7 @@ const JobDetails = ({ params }) => {
             </div>
             <hr />
             <div className="">
-              <h5 className="m-t20 m-b20 m-l10"> Other Relevant Jobs</h5>
+              <h5 className="m-t20 m-b20 m-l10">Other Relevant Jobs</h5>
               <Jobs />
             </div>
           </div>
