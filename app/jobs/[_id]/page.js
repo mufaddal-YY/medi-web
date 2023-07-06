@@ -74,7 +74,7 @@ const JobDetails = ({ params }) => {
   
     if (params._id && session?.user.id && router) {
       fetchJob();
-    } else if (!params._id || !session?.user.id) {
+    } else if (!session) {
       router.push("/auth/login"); // Redirect to login page if params._id or session.user.id is missing
     }
   }, [params._id, session?.user.id, router]);
