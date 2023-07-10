@@ -5,9 +5,9 @@ export const GET = async (request, { params }) => {
   try {
 
     await connectToDB();
-    const jobs = await JobApplication.find({creator: params.id}).populate('creator');
+    const jobApplications = await JobApplication.find();
 
-    return new Response(JSON.stringify(jobs), {
+    return new Response(JSON.stringify(jobApplications), {
       status: 200,
     });
 
