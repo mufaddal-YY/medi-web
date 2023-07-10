@@ -26,8 +26,9 @@ export const POST = async (req) => {
 export const GET = async (request, { params }) => {
   try {
     await connectToDB();
-    const jobId = params._id; // Assuming you are passing the job ID as a parameter in the URL
+    const jobId = params.id; // Assuming you are passing the job ID as a parameter in the URL
     const jobApplications = await JobApplication.find({ job: jobId });
+
 
     return new Response(JSON.stringify(jobApplications), {
       status: 200,
