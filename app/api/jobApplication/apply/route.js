@@ -23,22 +23,7 @@ export const POST = async (req) => {
     }
 };
 
-export const GET = async (request, { params }) => {
-  try {
-    await connectToDB();
-    const jobId = params.id; // Assuming you are passing the job ID as a parameter in the URL
-    const jobApplications = await JobApplication.find({ job: jobId });
 
-
-    return new Response(JSON.stringify(jobApplications), {
-      status: 200,
-    });
-
-  } catch (error) {
-    console.error("Failed to fetch job applications:", error);
-    return new Response("Failed to fetch job applications", { status: 500 });
-  }
-};
 
 
 
