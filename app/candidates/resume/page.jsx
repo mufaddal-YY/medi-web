@@ -104,7 +104,7 @@ const Resume = () => {
     e.preventDefault();
 
     try {
-      const response = await fetch("https://medirecruiters.in/api/candidates", {
+      const response = await fetch("api/candidates", {
         method: "POST",
         body: JSON.stringify({
           firstName: firstName,
