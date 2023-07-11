@@ -145,7 +145,7 @@ const JobDetails = ({ params }) => {
 
   try {
     const response = await fetch(
-      "https://medirecruiters.in/api/jobApplication/apply",
+      "https://medi-server.onrender.com/api/v1/jobApplications",
       {
         method: "POST",
         body: JSON.stringify({

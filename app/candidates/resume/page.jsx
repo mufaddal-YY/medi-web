@@ -104,7 +104,7 @@ const Resume = () => {
     e.preventDefault();
 
     try {
-      const response = await fetch("https://medirecruiters.in/api/candidates", {
+      const response = await fetch("https://medi-server.onrender.com/api/v1/candidates", {
         method: "POST",
         body: JSON.stringify({
           firstName: firstName,
