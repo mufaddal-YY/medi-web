@@ -4,7 +4,7 @@ import JobApplication from "@models/jobApplication";
 export const GET = async (request, { params }) => {
     try {
       await connectToDB();
-      const jobApplications = await JobApplication.find();
+      const jobApplications = await JobApplication.find({});
   
   
       return new Response(JSON.stringify(jobApplications), {
