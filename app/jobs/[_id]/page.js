@@ -145,7 +145,7 @@ const JobDetails = ({ params }) => {
 
   try {
     const response = await fetch(
-      "https://medi-server.onrender.com/api/v1/jobApplications",
+      "https://medi-web.vercel.app/api/jobApplications",
       {
         method: "POST",
         body: JSON.stringify({
