@@ -123,6 +123,9 @@ function Header() {
                   <Link href={"/about"}>About</Link>
                 </li>
                 <li>
+                  <Link href={"/directors-message"}>Director's Message</Link>
+                </li>
+                <li>
                   <Link href={"/blogs"}>Blogs</Link>
                 </li>
 

@@ -7,14 +7,14 @@ const Cta = () => {
       <div className="section-container section-sp4 ">
         <div className="container ctaBg " style={{ borderRadius: "25px" }}>
           <div className="p-t80 p-b80 ">
-            <h3 className="text-white d-flex justify-content-center">
-              Browse our 1000+ latest Jobs
+            <h3 className="text-white text-center">
+              Let's embark on this transformative journey together.
             </h3>
-            <p className="text-white text-center d-flex justify-content-center">
-              Lorem ipsum dolor sit amet, consetetur sadipscing elitr, <br />
-              sed diam nonumy eirmod tempor invidunt ut labore et dolore magna.
+            <p className="text-white text-center"> 
+              Contact us today to discuss your healthcare staffing needs or <br />
+              explore exciting career opportunities.
             </p>
-            <div className="d-flex justify-content-center">
+            <div className="text-center">
               <Link href={"/"} className="btn-secondary button-md radius-md">
                 Explore <BsArrowRight />
               </Link>

@@ -13,7 +13,7 @@ const AboutPage = () => {
 
     <AboutHero/>
     <AboutDemand/>
-    <WhyMedi />
+    {/* <WhyMedi /> */}
     <AboutFounder/>
     <Clientele />
    
