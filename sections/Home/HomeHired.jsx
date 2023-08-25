@@ -4,46 +4,65 @@ import React, { useRef } from "react";
 import Slider from "react-slick";
 import { HiArrowLongRight } from "react-icons/hi";
 import { HiArrowLongLeft } from "react-icons/hi";
-import SliderHired from "@assets/images/SliderHired1.png";
 import ClientLogo from "@assets/images/clientLogo.png";
+import SliderHired from "@assets/images/SliderHired1.png";
 import SliderHired1 from "@assets/images/SliderHired2.png";
 import SliderHired2 from "@assets/images/SliderHired3.png";
 import SliderHired3 from "@assets/images/SliderHired4.png";
 import SliderHired4 from "@assets/images/SliderHired5.png";
-import SliderHired5 from "@assets/images/SliderHired6.png";
 
 import Image from "next/image";
 
 const content = [
   {
     thumb: SliderHired,
-    title: "Lorem Ipsum Dolor",
-    tags: ["Website", "Uiux"],
+    title: "Dr.Suresh Babu",
+    tags: "Uvea (SALEM) THE EYE FOUNDATION",
   },
   {
     thumb: SliderHired1,
-    title: "Lorem Ipsum Dolor",
-    tags: ["Website", "Uiux"],
+    title: "Dr.Karan Magdum",
+    tags: "The Eye Foundation, Madurai",
   },
   {
     thumb: SliderHired2,
-    title: "Lorem Ipsum Dolor",
-    tags: ["Website", "Uiux"],
+    title: "Dr. Vikrant Bhagat",
+    tags: "Saideep Hospital, Ahmednagar",
   },
   {
     thumb: SliderHired3,
-    title: "Lorem Ipsum Dolor",
-    tags: ["Website", "Uiux"],
+    title: "Dr. Prasad Tanawade",
+    tags: "APPLE SARASWATHI multispeciality hospital, Kolhapur",
   },
   {
     thumb: SliderHired4,
-    title: "Lorem Ipsum Dolor",
-    tags: ["Website", "Uiux"],
+    title: "Dr. Akshay Kharat",
+    tags: "Digras, Yevatmal",
   },
   {
-    thumb: SliderHired5,
-    title: "Lorem Ipsum Dolor",
-    tags: ["Website", "Uiux"],
+    thumb: SliderHired,
+    title: "Dr.Suresh Babu",
+    tags: "Uvea (SALEM) THE EYE FOUNDATION",
+  },
+  {
+    thumb: SliderHired1,
+    title: "Dr.Karan Magdum",
+    tags: "The Eye Foundation, Madurai",
+  },
+  {
+    thumb: SliderHired2,
+    title: "Dr. Vikrant Bhagat",
+    tags: "Saideep Hospital, Ahmednagar",
+  },
+  {
+    thumb: SliderHired3,
+    title: "Dr. Prasad Tanawade",
+    tags: "APPLE SARASWATHI multispeciality hospital, Kolhapur",
+  },
+  {
+    thumb: SliderHired4,
+    title: "Dr. Akshay Kharat",
+    tags: "Digras, Yevatmal",
   },
 ];
 
@@ -94,12 +113,11 @@ const HomeHired = () => {
         <div className="container">
           <div className="d-flex justify-content-between ">
             <div className="m-b0">
-              <span className="text-red">
-               Get Hired Now
-              </span>
+              <span className="text-red">Get Hired Now</span>
               <h3>Top hospitals are looking for you</h3>
             </div>
-          </div><hr />
+          </div>
+          <hr />
         </div>
         <div className="container-fluid">
           <Slider
@@ -114,21 +132,18 @@ const HomeHired = () => {
                   </div>
                   <div className="portfolio-info">
                     <div className="client-logo">
-                      <div className="d-flex">
-                        <div>
-                          <Image
-                            width={50}
-                            height={20}
-                            src={ClientLogo}
-                            alt=""
-                          />
-                        </div>
-
-                        <div>
+                      <div className="d-flex ">
+                        <div className="p-10">
                           <h6 className="m-b0">
-                            <Link href={item.title}>{item.title}</Link>
+                            <Link href={item.title}>
+                              {" "}
+                              <strong>{item.title}</strong>{" "}
+                            </Link>
                           </h6>
-                          <span className="text-red m-b10"> <small className="fs12">Lorem Ipsum Dolor Sit Amet</small> </span>
+                          <span className="text-red m-b10">
+                            {" "}
+                            <small className="fs12">{item.tags}</small>{" "}
+                          </span>
                         </div>
                       </div>
                     </div>
@@ -137,7 +152,6 @@ const HomeHired = () => {
               </div>
             ))}
           </Slider>
-          
         </div>
       </div>
     </>

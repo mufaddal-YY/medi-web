@@ -130,7 +130,12 @@ function Header() {
                 </li>
 
                 <li className="hidden-desk">
-                  <Link href={"/auth/login"} onClick={signOut}> <Iconify icon="solar:logout-2-bold" color="#DF3E30" /> Logout</Link>
+                {session ? (
+                  (<Link href={"/auth/login"} onClick={signOut}> <Iconify icon="solar:logout-2-bold" color="#DF3E30" /> Logout</Link>)
+                ) : (
+                 ""
+                )}
+                  
                 </li>
               </ul>
             </div>
