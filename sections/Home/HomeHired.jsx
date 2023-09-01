@@ -71,7 +71,7 @@ const HomeHired = () => {
     dots: false,
     infinite: true,
 
-    slidesToShow: 5,
+    slidesToShow: 6,
     slideTransition: "ease-in-out", // Update the slideTransition property
 
     autoplay: true,
@@ -82,7 +82,7 @@ const HomeHired = () => {
       {
         breakpoint: 1200,
         settings: {
-          slidesToShow: 4,
+          slidesToShow: 5,
         },
       },
       {
@@ -136,13 +136,11 @@ const HomeHired = () => {
                         <div className="p-10">
                           <h6 className="m-b0">
                             <Link href={item.title}>
-                              {" "}
-                              <strong>{item.title}</strong>{" "}
+                              <strong>{item.title}</strong>
                             </Link>
                           </h6>
                           <span className="text-red m-b10">
-                            {" "}
-                            <small className="fs12">{item.tags}</small>{" "}
+                            <small className="fs12">{item.tags}</small>
                           </span>
                         </div>
                       </div>
