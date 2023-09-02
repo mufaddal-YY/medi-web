@@ -22,7 +22,7 @@ const HomeWhyUs = () => {
               </h3>
               <p className="m-b20">
                 MediRecruiters is a healthcare placement consultancy in India,
-                with an exclusive database of over 4 lakh doctors and healthcare
+                with an exclusive database of over 10 lakh doctors and healthcare
                 professionals. We help talented doctors advance their careers in
                 India and support hospitals by providing the best teams quickly.
               </p>
@@ -62,7 +62,7 @@ const HomeWhyUs = () => {
                         </Tab.Pane>
                         <Tab.Pane eventKey="2">
                           <p>
-                            <li>Database of over 4 lakh Doctors & Healthcare Professionals across India. </li>
+                            <li>Database of over 10 lakh Doctors & Healthcare Professionals across India. </li>
                             <li>Pan-India Level Recruitment Consultancy. </li>
                             <li>Placement of more than 150 Doctors per year.</li>
                             <li>Provision of services in Rural location & Metro cities, across India.</li>

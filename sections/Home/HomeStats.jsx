@@ -17,7 +17,7 @@ const HomeStats = () => {
               <hr />
               <p>
                 MediRecruiters is a healthcare placement consultancy in India,
-                with an exclusive database of over 4 lakh doctors and healthcare
+                with an exclusive database of over 10 lakh doctors and healthcare
                 professionals. We help talented doctors advance their careers in
                 India and support hospitals by providing the best teams quickly.
               </p>
