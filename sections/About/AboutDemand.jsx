@@ -176,7 +176,7 @@ const Content = [
     title: "Our Services",
     icon: book,
     description:
-      "Database of over 4 lakh Doctors & Healthcare Professionals across India. " +
+      "Database of over 10 lakh Doctors & Healthcare Professionals across India. " +
       "Pan-India Level Recruitment Consultancy. " +
       "Placement of more than 150 Doctors per year. " +
       "Provision of services in Rural location & Metro cities, across India.",

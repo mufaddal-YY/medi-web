@@ -30,7 +30,7 @@ const AboutHero = () => {
 
             <p>
               MediRecruiters is a Healthcare Placement Consultancy, with an
-              exclusive database of over 4 lakh Doctors and Healthcare
+              exclusive database of over 10 lakh Doctors and Healthcare
               Professionals of India. 
             </p>
 
