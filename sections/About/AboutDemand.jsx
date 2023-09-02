@@ -180,7 +180,6 @@ const Content = [
       "Pan-India Level Recruitment Consultancy. " +
       "Placement of more than 150 Doctors per year. " +
       "Provision of services in Rural location & Metro cities, across India.",
-    
   },
 ];
 
@@ -191,7 +190,7 @@ const AboutDemand = () => {
         <div className="container">
           <div className="text-left">
             <h3>
-              About <span className="text-red">Medirecruiters</span>{" "}
+              About <span className="text-red">Medirecruiters</span>
             </h3>
           </div>
 
@@ -208,25 +207,93 @@ const AboutDemand = () => {
             </p>
 
             <p>
-            Our mission is simple yet profound: 'Healthy Humans.' With an unwavering commitment to this cause, we have set our sights on an audacious goal of placing 10 million doctors worldwide. At MediRecruiters, we firmly believe that a world filled with healthy individuals begins by empowering doctors with the opportunities they deserve.
+              Our mission is simple yet profound: 'Healthy Humans.' With an
+              unwavering commitment to this cause, we have set our sights on an
+              audacious goal of placing 10 million doctors worldwide. At
+              MediRecruiters, we firmly believe that a world filled with healthy
+              individuals begins by empowering doctors with the opportunities
+              they deserve.
             </p>
 
-            <p>Picture a future where doctors flourish, finding not only professional success but also unbridled joy and prosperity in their chosen paths. This is the vision we strive to bring to life at MediRecruiters, where we are dedicated to serving peace, pleasure, and prosperity to doctors around the globe. By championing their cause, we aim to catalyze a ripple effect of positive change that reverberates through the entire healthcare ecosystem.</p>
+            <p>
+              Picture a future where doctors flourish, finding not only
+              professional success but also unbridled joy and prosperity in
+              their chosen paths. This is the vision we strive to bring to life
+              at MediRecruiters, where we are dedicated to serving peace,
+              pleasure, and prosperity to doctors around the globe. By
+              championing their cause, we aim to catalyze a ripple effect of
+              positive change that reverberates through the entire healthcare
+              ecosystem.
+            </p>
 
-            <p>Immerse yourself in our unparalleled network, boasting an impressive database of over 1.5 million doctors. With a wide range of talents and specialties at our fingertips, we have become the ultimate destination for medical professionals seeking exceptional career opportunities. From talented general practitioners to brilliant specialists and super-specialists, we have the right fit for every medical discipline.</p>
+            <p>
+              Immerse yourself in our unparalleled network, boasting an
+              impressive database of over 1.5 million doctors. With a wide range
+              of talents and specialties at our fingertips, we have become the
+              ultimate destination for medical professionals seeking exceptional
+              career opportunities. From talented general practitioners to
+              brilliant specialists and super-specialists, we have the right fit
+              for every medical discipline.
+            </p>
 
-            <p>Our impact speaks volumes, as we have already paved the way for more than 1,500 doctors to find their rightful place across the nation. Among them, over 650 specialists and super-specialists have reached new heights in their esteemed careers. Our reach extends across 450 vibrant cities in India, including the pulsating metropolises of Mumbai, Pune, Kolkata, Chennai, Delhi, Bangalore, Nagpur, Ahmedabad, Aurangabad, and a host of other healthcare hotspots.</p>
+            <p>
+              Our impact speaks volumes, as we have already paved the way for
+              more than 1,500 doctors to find their rightful place across the
+              nation. Among them, over 650 specialists and super-specialists
+              have reached new heights in their esteemed careers. Our reach
+              extends across 450 vibrant cities in India, including the
+              pulsating metropolises of Mumbai, Pune, Kolkata, Chennai, Delhi,
+              Bangalore, Nagpur, Ahmedabad, Aurangabad, and a host of other
+              healthcare hotspots.
+            </p>
 
-            <p>Embracing excellence, we have strategically positioned branch offices to ensure personalized service and unmatched support. From our headquarters in Aurangabad, the birthplace of our noble venture, to the bustling hubs of Mumbai, Pune, and Bangalore, we are where the heartbeat of the medical community thrives. These strategic locations allow us to intimately understand the unique needs and aspirations of doctors and seamlessly connect them with prestigious healthcare institutions.</p>
+            <p>
+              Embracing excellence, we have strategically positioned branch
+              offices to ensure personalized service and unmatched support. From
+              our headquarters in Aurangabad, the birthplace of our noble
+              venture, to the bustling hubs of Mumbai, Pune, and Bangalore, we
+              are where the heartbeat of the medical community thrives. These
+              strategic locations allow us to intimately understand the unique
+              needs and aspirations of doctors and seamlessly connect them with
+              prestigious healthcare institutions.
+            </p>
 
-            <p>Behind the scenes, our team of passionate experts fuels our success. Armed with profound knowledge and a deep understanding of the healthcare industry, they work tirelessly to curate the perfect match between doctors and institutions. We recognize that success goes beyond qualifications; it demands a profound alignment of values, aspirations, and culture. By embracing a personalized approach, we ensure that every placement is a stepping stone towards a remarkable and fulfilling journey.</p>
+            <p>
+              Behind the scenes, our team of passionate experts fuels our
+              success. Armed with profound knowledge and a deep understanding of
+              the healthcare industry, they work tirelessly to curate the
+              perfect match between doctors and institutions. We recognize that
+              success goes beyond qualifications; it demands a profound
+              alignment of values, aspirations, and culture. By embracing a
+              personalized approach, we ensure that every placement is a
+              stepping stone towards a remarkable and fulfilling journey.
+            </p>
 
-            <p>Trust is the cornerstone of our thriving ecosystem. We have earned the unwavering trust and respect of doctors and healthcare organizations across the nation. By nurturing strong relationships and fostering open lines of communication, we create an atmosphere of collaboration, where dreams are transformed into reality.</p>
+            <p>
+              Trust is the cornerstone of our thriving ecosystem. We have earned
+              the unwavering trust and respect of doctors and healthcare
+              organizations across the nation. By nurturing strong relationships
+              and fostering open lines of communication, we create an atmosphere
+              of collaboration, where dreams are transformed into reality.
+            </p>
 
-            <p>Whether you are a doctor yearning for new frontiers and exhilarating challenges or a healthcare institution in pursuit of exceptional talent, MediRecruiters is your unwavering partner in progress. Unleash the power of the MediRecruiters experience, where careers are catapulted to unimaginable heights and healthcare institutions are fortified with brilliance.</p>
+            <p>
+              Whether you are a doctor yearning for new frontiers and
+              exhilarating challenges or a healthcare institution in pursuit of
+              exceptional talent, MediRecruiters is your unwavering partner in
+              progress. Unleash the power of the MediRecruiters experience,
+              where careers are catapulted to unimaginable heights and
+              healthcare institutions are fortified with brilliance.
+            </p>
 
-            <p>Together, let's embark on an extraordinary journey, redefining the future of healthcare one placement at a time. At MediRecruiters, we believe in the remarkable potential of doctors to shape a healthier world. Join us as we revolutionize the landscape of medicine, empowering doctors to leave an indelible mark on humanity.</p>
-        
+            <p>
+              Together, let's embark on an extraordinary journey, redefining the
+              future of healthcare one placement at a time. At MediRecruiters,
+              we believe in the remarkable potential of doctors to shape a
+              healthier world. Join us as we revolutionize the landscape of
+              medicine, empowering doctors to leave an indelible mark on
+              humanity.
+            </p>
           </div>
 
           <div className="row m-t80">
@@ -235,8 +302,7 @@ const AboutDemand = () => {
                 <div className="text-center p-20">
                   <p>{item.icon}</p>
                   <p className="text-dark">
-                    {" "}
-                    <strong>{item.title}</strong>{" "}
+                    <strong>{item.title}</strong>
                   </p>
                   <p>{item.description}</p>
                 </div>
@@ -245,8 +311,15 @@ const AboutDemand = () => {
           </div>
 
           <div className="d-flex justify-content-center m-t30">
-            <video src=""></video>
-            <Image src={VideoImage} width={900} height={200} />
+            <iframe
+              width="100%"
+              height="600vh"
+              src="https://www.youtube.com/embed/M_ONmdWugkw?si=MQPFI6AvgA2HKOf3"
+              title="YouTube video player"
+              frameborder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              allowfullscreen></iframe>
+            {/* <Image src={VideoImage} width={900} height={200} /> */}
           </div>
         </div>
       </div>
